@@ -6,4 +6,4 @@
  / cd client
  /  npm i
  /  npm start
-
+# create db with psql
