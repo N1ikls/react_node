@@ -93,7 +93,7 @@ const ListTodos = () => {
         <h1>List Todos</h1>
         <button onClick={() => getTodos()}>Reload Table</button>
         <div className="filter">
-          <Filter />
+          <Filter todos={todos} />
         </div>
       </div>
       <table className="table">

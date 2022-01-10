@@ -30,7 +30,7 @@ app.get("/todos", async (req, res) => {
   }
 });
 // sort
-app.get(`/todos/sort_count`, async (req, res) => {
+app.get('/todos/sort_count', async (req, res) => {
   try {
     const allTodos = await pool.query(`SELECT * FROM todo ORDER BY todo_count`);
     res.json(allTodos.rows);

@@ -126,3 +126,6 @@ ul {
 .filter {
   margin-left: 50px;
 }
+.formControl {
+  transform: translate(10%, -20%);
+}
