@@ -30,7 +30,7 @@ app.get("/todos", async (req, res) => {
   }
 });
 // sort
-app.get('/todos/sort_count', async (req, res) => {
+app.get("/todos/sort_count", async (req, res) => {
   try {
     const allTodos = await pool.query(`SELECT * FROM todo ORDER BY todo_count`);
     res.json(allTodos.rows);
@@ -56,8 +56,20 @@ app.get(`/todos/sort_distance`, async (req, res) => {
     console.error(err.message);
   }
 });
-// filter
-
+// filter todo
+app.get("/todos/:name/:equally/:column", async (req, res) => {
+  try {
+    const { name, equally, column } = req.params;
+    const todo = await pool.query(
+      `SELECT * FROM todo WHERE todo_${name} ${equally} $1`,
+      [column]
+    );
+    res.json(todo.rows);
+    console.log(equally);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 //get a todo
 app.get("/todos/:id", async (req, res) => {
   try {

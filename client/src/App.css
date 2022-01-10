@@ -129,3 +129,7 @@ ul {
 .formControl {
   transform: translate(10%, -20%);
 }
+.input__filter {
+  margin-left: 30px;
+  
+}

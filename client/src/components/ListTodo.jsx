@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Filter from "./Filter";
 import Pagitanion from "./Pagination";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import EditTodo from "./EditTodo";
 import "../App.css";
-const ListTodos = () => {
+const ListTodos = ({ col, input, operand }) => {
   const [todos, settodos] = useState([]);
   // for pagination ------------------------------------------------
   const [todosPage, settodosPage] = useState(1);
@@ -41,6 +40,19 @@ const ListTodos = () => {
   useEffect(() => {
     getTodos();
   }, []);
+  //get filter todos
+  const getFilter = async (column, value, operand) => {
+    try {
+      axios
+        .get(`http://localhost:5000/todos/${column}/${operand}/${value}`)
+        .then((res) => {
+          settodos(res.data);
+          console.log("getfilter", res.data);
+        });
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   //-------------------------sort-----------------------------------
   //get todos
   const Sort = async (name) => {
@@ -93,7 +105,14 @@ const ListTodos = () => {
         <h1>List Todos</h1>
         <button onClick={() => getTodos()}>Reload Table</button>
         <div className="filter">
-          <Filter todos={todos} />
+          <button
+            style={{
+              marginLeft: "0px",
+            }}
+            onClick={() => getFilter(col, input, operand)}
+          >
+            Filter
+          </button>
         </div>
       </div>
       <table className="table">
@@ -110,5 +129,4 @@ const ListTodos = () => {
     </>
   );
 };
-
 export default ListTodos;
